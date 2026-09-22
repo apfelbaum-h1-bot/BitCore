@@ -1,0 +1,15 @@
+Modern mingw-w64 provides TOUCHINPUT (with _WIN32_WINNT >= 0x0601);
+Qt 5.9's local fallback definition guarded on Q_CC_MINGW then collides.
+Only fall back when the SDK really lacks the touch API.
+
+--- a/qtbase/src/plugins/platforms/windows/qwindowsmousehandler.cpp
++++ b/qtbase/src/plugins/platforms/windows/qwindowsmousehandler.cpp
+@@ -59,7 +59,7 @@
+  * are present in the Windows SDK's, but not in older MSVC Express
+  * versions. */
+ 
+-#if defined(Q_CC_MINGW) || !defined(TOUCHEVENTF_MOVE)
++#if !defined(TOUCHEVENTF_MOVE)
+ 
+ typedef struct tagTOUCHINPUT {
+     LONG x;

@@ -788,7 +788,7 @@ const fs::path &GetBackupsDir()
         return backupsDir;
 
     if (gArgs.IsArgSet("-walletbackupsdir")) {
-        backupsDir = fs::system_complete(gArgs.GetArg("-walletbackupsdir", ""));
+        backupsDir = fs::absolute(gArgs.GetArg("-walletbackupsdir", ""));
         // Path must exist
         if (fs::is_directory(backupsDir)) return backupsDir;
         // Fallback to default path if it doesn't
@@ -818,7 +818,7 @@ const fs::path &GetBlocksDir(bool fNetSpecific)
         return path;
 
     if (gArgs.IsArgSet("-blocksdir")) {
-        path = fs::system_complete(gArgs.GetArg("-blocksdir", ""));
+        path = fs::absolute(gArgs.GetArg("-blocksdir", ""));
         if (!fs::is_directory(path)) {
             path = "";
             return path;
@@ -847,7 +847,7 @@ const fs::path &GetDataDir(bool fNetSpecific)
         return path;
 
     if (gArgs.IsArgSet("-datadir")) {
-        path = fs::system_complete(gArgs.GetArg("-datadir", ""));
+        path = fs::absolute(gArgs.GetArg("-datadir", ""));
         if (!fs::is_directory(path)) {
             path = "";
             return path;
