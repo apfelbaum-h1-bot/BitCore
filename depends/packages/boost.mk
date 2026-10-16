@@ -29,7 +29,7 @@ define $(package)_preprocess_cmds
 endef
 
 define $(package)_config_cmds
-  ./bootstrap.sh --without-icu --with-libraries=$(boost_config_libraries)
+  CC=gcc CFLAGS="-std=gnu17 -Wno-implicit-function-declaration -Wno-int-conversion -Wno-incompatible-pointer-types" ./bootstrap.sh --with-toolset=cc --without-icu --with-libraries=$(boost_config_libraries) && sed -i -e 's/using cc ;/using gcc ;/' -e 's/<toolset>cc/<toolset>gcc/' project-config.jam
 endef
 
 define $(package)_build_cmds

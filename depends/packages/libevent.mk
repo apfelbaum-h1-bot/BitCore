@@ -5,7 +5,7 @@ $(package)_file_name=release-$($(package)_version).tar.gz
 $(package)_sha256_hash=316ddb401745ac5d222d7c529ef1eada12f58f6376a66c1118eee803cb70f83d
 
 define $(package)_preprocess_cmds
-  ./autogen.sh
+  sed -i 's/#define _WIN32_WINNT 0x0501/#define _WIN32_WINNT 0x0601/' evutil.c && ./autogen.sh
 endef
 
 define $(package)_set_vars
